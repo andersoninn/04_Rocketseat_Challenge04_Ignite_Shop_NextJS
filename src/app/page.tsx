@@ -1,17 +1,18 @@
+import { CommitCard } from '@/components/CommitCard';
 import { Header } from '@/components/Header';
 import { Profile } from '@/components/Profile';
+import { SearchForm } from '@/components/SeachForm';
 
 export default function Home() {
   return (
     <>
       <Header />
       <Profile />
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta ut
-        neque reiciendis alias dolorem eveniet, nemo sunt porro amet, tempora
-        enim ab ullam doloribus voluptatibus ad reprehenderit repellat quis
-        deleniti?
-      </p>
+      <SearchForm />
+      <div className="md:grid grid-cols-2">
+        <CommitCard />
+        <CommitCard />
+      </div>
     </>
   );
 }

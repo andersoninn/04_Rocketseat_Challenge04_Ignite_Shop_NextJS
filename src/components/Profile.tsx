@@ -19,7 +19,11 @@ export function Profile() {
           <div>
             <div className=" flex justify-between mb-2">
               <h1 className="text-2xl">Cameron Williamson</h1>
-              <div className="flex text-brand-blue font-bold gap-2">
+              <div
+                className="flex text-brand-blue font-bold gap-2 mb-4 border-b-2 border-brand-base-profile
+                hover:border-b-brand-blue
+               file:cursor-pointer"
+              >
                 <span className="text-sm ">GITHUB</span>
 
                 <Image
