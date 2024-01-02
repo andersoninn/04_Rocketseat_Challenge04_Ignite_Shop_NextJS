@@ -13,6 +13,7 @@ const config: Config = {
         brand: {
           purple: '#9747FF',
           blue: '#3294F8',
+          'base-title': '#E7EDF4',
           'base-subtitle': '#C4D4E3',
           'base-text': '#AFC2D4',
 

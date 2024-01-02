@@ -1,3 +1,4 @@
+import { CommentsArea } from '@/components/CommentsArea';
 import { CommitCard } from '@/components/CommitCard';
 import { Header } from '@/components/Header';
 import { Profile } from '@/components/Profile';
@@ -9,10 +10,7 @@ export default function Home() {
       <Header />
       <Profile />
       <SearchForm />
-      <div className="md:grid grid-cols-2">
-        <CommitCard />
-        <CommitCard />
-      </div>
+      <CommentsArea />
     </>
   );
 }

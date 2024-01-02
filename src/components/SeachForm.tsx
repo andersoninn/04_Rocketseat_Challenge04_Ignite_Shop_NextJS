@@ -1,6 +1,6 @@
 export function SearchForm() {
   return (
-    <main className="m-auto flex justify-center mt-14">
+    <main className="m-auto flex justify-center mt-10">
       <div className="container max-w-[864px]">
         <div className="flex gap-4 justify-between text-md">
           <h1>Publicações</h1>
