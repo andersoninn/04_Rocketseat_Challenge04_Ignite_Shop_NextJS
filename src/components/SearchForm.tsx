@@ -1,23 +1,25 @@
-import { ApiContext } from '@/contexts/ApiContext';
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useContext } from 'react';
 
-export const searchFormSchema = z.object({
+import { FetchContextApi } from '@/contexts/APIcontext';
+
+const searchFormSchema = z.object({
   query: z.string(),
 });
 
 type SearchFormInput = z.infer<typeof searchFormSchema>;
 
 export function SearchForm() {
-  const { apiData } = useContext(ApiContext);
+  const { issues, fetchIssuesAPI } = useContext(FetchContextApi);
 
   const { register, handleSubmit } = useForm<SearchFormInput>({
     resolver: zodResolver(searchFormSchema),
   });
 
   function handleSearchCommit(data: SearchFormInput) {
+    fetchIssuesAPI(data.query);
     console.log(data);
   }
 
@@ -26,7 +28,9 @@ export function SearchForm() {
       <div className="container max-w-[864px]">
         <div className="flex gap-4 justify-between text-md">
           <h1>Publicações</h1>
-          <span>{apiData?.public_repos} publicações</span>
+          <span className="text-sm text-brand-base-span">
+            {issues?.total_count} publicações
+          </span>
         </div>
         <form className="mt-3" onSubmit={handleSubmit(handleSearchCommit)}>
           <input

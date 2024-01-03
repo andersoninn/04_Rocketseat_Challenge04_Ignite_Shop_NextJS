@@ -4,18 +4,39 @@ import GitHub from '../../public/icons/github.svg';
 import Building from '../../public/icons/building.svg';
 import People from '../../public/icons/people.svg';
 import Image from 'next/image';
-import { ApiContext } from '@/contexts/ApiContext';
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
+import { api } from '@/lib/axios';
+
+interface ProfileApiDataType {
+  name: string;
+  avatar_url: string;
+  bio: string;
+  login: string;
+  company: string;
+  followers: string;
+  public_repos: number;
+  html_url: string;
+}
 
 export function Profile() {
-  const { apiData } = useContext(ApiContext);
+  const [profileApiData, setProfileApiData] = useState<ProfileApiDataType>();
+
+  async function fetchProfileAPI() {
+    const response = await api.get('/users/andersoninn');
+
+    setProfileApiData(response.data);
+  }
+
+  useEffect(() => {
+    fetchProfileAPI();
+  }, []);
 
   return (
     <div className="flex items-center justify-center">
       <main className="max-w-[864px] bg-brand-base-profile -mt-[106px] rounded-lg p-8 ">
         <div className="flex">
           <img
-            src={apiData?.avatar_url}
+            src={profileApiData?.avatar_url}
             width={40}
             height={40}
             alt=""
@@ -23,13 +44,17 @@ export function Profile() {
           />
           <div>
             <div className=" flex justify-between mb-2">
-              <h1 className="text-2xl">{apiData?.name}</h1>
+              <h1 className="text-2xl">{profileApiData?.name}</h1>
               <div
                 className="flex text-brand-blue font-bold gap-2 mb-4 border-b-2 border-brand-base-profile
                 hover:border-b-brand-blue
                file:cursor-pointer"
               >
-                <a href={apiData?.html_url} className="text-sm" target="blank">
+                <a
+                  href={profileApiData?.html_url}
+                  className="text-sm"
+                  target="blank"
+                >
                   GITHUB
                 </a>
 
@@ -41,7 +66,7 @@ export function Profile() {
               </div>
             </div>
             <div>
-              <p className="pl-4">{apiData?.bio}</p>
+              <p className="pl-4">{profileApiData?.bio}</p>
             </div>
             <div className="flex gap-6 mt-6">
               <div className="flex gap-2 items-center">
@@ -50,7 +75,7 @@ export function Profile() {
                   alt=""
                   className="w-4 h-4 text-brand-blue"
                 />
-                {apiData?.login}
+                {profileApiData?.login}
               </div>
               <div className="flex gap-2 items-center">
                 <Image
@@ -58,7 +83,7 @@ export function Profile() {
                   alt=""
                   className="w-4 h-4 text-brand-blue"
                 />
-                {apiData?.company}
+                {profileApiData?.company}
               </div>
               <div className="flex gap-2 items-center">
                 <Image
@@ -66,7 +91,7 @@ export function Profile() {
                   alt=""
                   className="w-4 h-4 text-brand-blue"
                 />
-                {apiData?.followers}
+                {profileApiData?.followers}
               </div>
             </div>
           </div>

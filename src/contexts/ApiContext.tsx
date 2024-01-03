@@ -1,45 +1,54 @@
-'use client';
-
+import { api } from '@/lib/axios';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 
-interface APIData {
-  name: string;
-  avatar_url: string;
-  bio: string;
-  login: string;
-  company: string;
-  followers: string;
-  public_repos: number;
-  html_url: string;
+interface IssuesDataType {
+  total_count: number;
+  items: {
+    id: number;
+    title: string;
+    body: string;
+    created_at: string;
+  }[];
 }
 
-interface ApiContextType {
-  apiData?: APIData;
+interface FetchContextType {
+  issues?: IssuesDataType;
+  fetchIssuesAPI: (query?: string) => Promise<void>;
 }
 
-interface ApiDataProviderProps {
+interface FetchContextProviderProps {
   children: ReactNode;
 }
 
-export const ApiContext = createContext({} as ApiContextType);
+export const FetchContextApi = createContext({} as FetchContextType);
 
-export function ApiContextProvider({ children }: ApiDataProviderProps) {
-  const [apiData, setApiData] = useState<apiData>();
+export function FetchContextProvider({ children }: FetchContextProviderProps) {
+  const [issues, setIssues] = useState<IssuesDataType | undefined>();
 
-  async function loadAPI() {
-    const response = await fetch('https://api.github.com/users/andersoninn');
-    const data = await response.json();
-
-    console.log(data);
-    setApiData(data);
+  async function fetchIssuesAPI(query?: string) {
+    const response = await api.get(
+      '/search/issues?q=repo:andersoninn/04_Rocketseat_Challenge04_Git_blog_NextJS',
+      {
+        params: {
+          q: `${query}+ repo:andersoninn/04_Rocketseat_Challenge04_Git_blog_NextJS`,
+        },
+      }
+    );
+    setIssues(await response.data);
   }
 
   useEffect(() => {
-    loadAPI();
+    fetchIssuesAPI();
   }, []);
 
+  useEffect(() => {
+    // console.log(issues?.items);
+    // console.log(issues?.items[0].title);
+  }, [issues]);
+
   return (
-    <ApiContext.Provider value={{ apiData }}>{children}</ApiContext.Provider>
+    <FetchContextApi.Provider value={{ issues, fetchIssuesAPI }}>
+      {children}
+    </FetchContextApi.Provider>
   );
-  <p></p>;
 }
