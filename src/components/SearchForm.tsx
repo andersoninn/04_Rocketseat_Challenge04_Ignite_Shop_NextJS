@@ -20,7 +20,6 @@ export function SearchForm() {
 
   function handleSearchCommit(data: SearchFormInput) {
     fetchIssuesAPI(data.query);
-    console.log(data);
   }
 
   return (
