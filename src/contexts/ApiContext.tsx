@@ -26,11 +26,12 @@ export function FetchContextProvider({ children }: FetchContextProviderProps) {
    const [issues, setIssues] = useState<IssuesDataType | undefined>();
 
    async function fetchIssuesAPI(query?: string) {
-      const response = await api.get(
-         `search/issues?q=${
-            query !== undefined ? query : ''
-         }+repo:andersoninn/04_Rocketseat_Challenge04_Git_blog_NextJS`
-      );
+      const response = await api.get('search/issues', {
+         params: {
+            q: query ?? '',
+            repo: 'andersoninn/04_Rocketseat_Challenge04_Git_blog_NextJS',
+         },
+      });
       const resp = await response.data;
 
       setIssues(resp);
@@ -41,8 +42,7 @@ export function FetchContextProvider({ children }: FetchContextProviderProps) {
    }, []);
 
    useEffect(() => {
-      // console.log(issues?.items);
-      // console.log(issues?.items[0].title);
+      
    }, [issues]);
 
    return (

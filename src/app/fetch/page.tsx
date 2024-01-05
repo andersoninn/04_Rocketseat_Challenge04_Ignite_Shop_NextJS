@@ -1,30 +1,16 @@
 'use client';
 import { FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import { FaGithub } from 'react-icons/fa';
-import { FaBuilding } from 'react-icons/fa6';
-import { MdPeopleAlt } from 'react-icons/md';
+import { FaCalendarDay } from 'react-icons/fa';
+import { FaComment } from 'react-icons/fa';
+import { FaChevronLeft } from 'react-icons/fa';
 
-import GitHub from '../../public/icons/github.svg';
-import Building from '../../public/icons/building.svg';
-import People from '../../public/icons/people.svg';
-import Image from 'next/image';
+import SummaryBox from '@/components/SummaryBox';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/axios';
-import Loading from '@/app/loading';
-import SummaryBox from './SummaryBox';
+import { ProfileApiDataType } from '@/components/Profile';
 
-export interface ProfileApiDataType {
-   name: string;
-   avatar_url: string;
-   bio: string;
-   login: string;
-   company: string;
-   followers: string;
-   public_repos: number;
-   html_url: string;
-}
-
-export function Profile() {
+export default function Page() {
    const [profileApiData, setProfileApiData] = useState<ProfileApiDataType>();
 
    async function fetchProfileAPI() {
@@ -38,30 +24,32 @@ export function Profile() {
    }, []);
 
    return (
-      <SummaryBox>
-         <div className="flex justify-between gap-5 min-h-[144px] ">
-            {!profileApiData && <Loading />}
-            {profileApiData && (
+      <>
+         <SummaryBox>
+            <div className="flex justify-between gap-5 min-h-[144px] ">
                <>
-                  <Image
-                     src={profileApiData?.avatar_url}
-                     width={144}
-                     height={144}
-                     alt=""
-                     style={{ objectFit: 'cover' }}
-                     className="rounded-lg"
-                  />
-
                   <div>
-                     <div className=" flex justify-between mb-2">
-                        <h1 className="text-2xl">{profileApiData?.name}</h1>
+                     <div className="flex justify-between mb-2">
+                        <div
+                           className="flex text-brand-blue font-bold gap-2 mb-4 border-b-2 border-brand-base-profile
+                                    hover:border-b-brand-blue file:cursor-pointer itens-center h-5"
+                        >
+                           <FaChevronLeft className="w-4 h-4" />
+                           <a
+                              href={profileApiData?.html_url}
+                              className="text-sm !leading-[18px]"
+                              target="blank"
+                           >
+                              VOLTAR
+                           </a>
+                        </div>
                         <div
                            className="flex text-brand-blue font-bold gap-2 mb-4 border-b-2 border-brand-base-profile
                                     hover:border-b-brand-blue file:cursor-pointer"
                         >
                            <a
                               href={profileApiData?.html_url}
-                              className="text-sm"
+                              className="text-sm !leading-[18px]"
                               target="blank"
                            >
                               GITHUB
@@ -79,18 +67,19 @@ export function Profile() {
                            {profileApiData?.login}
                         </div>
                         <div className="flex gap-2 items-center ">
-                           <FaBuilding className="w-4 h-4 text-brand-base-label" />
+                           <FaCalendarDay className="w-4 h-4 text-brand-base-label" />
                            {profileApiData?.company}
                         </div>
                         <div className="flex gap-2 items-center">
-                           <MdPeopleAlt className="w-4 h-4 text-brand-base-label" />
+                           <FaComment className="w-4 h-4 text-brand-base-label" />
                            {profileApiData?.followers}
+                           <span>Comentários</span>
                         </div>
                      </div>
                   </div>
                </>
-            )}
-         </div>
-      </SummaryBox>
+            </div>
+         </SummaryBox>
+      </>
    );
 }

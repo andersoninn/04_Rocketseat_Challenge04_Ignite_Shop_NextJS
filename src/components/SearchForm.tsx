@@ -3,7 +3,7 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 
-import { FetchContextApi } from '@/contexts/APIcontext';
+import { FetchContextApi } from '@/contexts/ApiContext';
 
 const searchFormSchema = z.object({
   query: z.string(),
@@ -15,7 +15,7 @@ export function SearchForm() {
   const { issues, fetchIssuesAPI } = useContext(FetchContextApi);
 
   const { register, handleSubmit } = useForm<SearchFormInput>({
-    resolver: zodResolver(searchFormSchema),
+    resolver: zodResolver(searchFormSchema)
   });
 
   function handleSearchCommit(data: SearchFormInput) {
@@ -28,6 +28,7 @@ export function SearchForm() {
         <div className="flex gap-4 justify-between text-md">
           <h1>Publicações</h1>
           <span className="text-sm text-brand-base-span">
+            {!issues && <span> 0 </span>}
             {issues?.total_count} publicações
           </span>
         </div>
