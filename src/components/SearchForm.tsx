@@ -15,10 +15,10 @@ export function SearchForm() {
   const { issues, fetchIssuesAPI } = useContext(FetchContextApi);
 
   const { register, handleSubmit } = useForm<SearchFormInput>({
-    resolver: zodResolver(searchFormSchema)
+    resolver: zodResolver(searchFormSchema),
   });
 
-  function handleSearchCommit(data: SearchFormInput) {
+  function handleSearchIssue(data: SearchFormInput) {
     fetchIssuesAPI(data.query);
   }
 
@@ -32,7 +32,7 @@ export function SearchForm() {
             {issues?.total_count} publicações
           </span>
         </div>
-        <form className="mt-3" onSubmit={handleSubmit(handleSearchCommit)}>
+        <form className="mt-3" onSubmit={handleSubmit(handleSearchIssue)}>
           <input
             type="text"
             className="container max-w-[864px] px-4 py-3 bg-brand-base-input rounded-md placeholder:text-brand-base-label 
