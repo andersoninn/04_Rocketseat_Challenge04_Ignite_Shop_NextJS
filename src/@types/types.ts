@@ -18,6 +18,8 @@ export interface IssuesDetailsType {
   }
   comments: number;
   created_at:string;
+  body: string;
+  state: 'open' | 'closed';
 }
   
 
@@ -32,6 +34,7 @@ export interface IssuesDataType {
     number: number;
   }[];
 }
+
 
 
 export interface FetchContextType {
