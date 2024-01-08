@@ -1,5 +1,5 @@
 'use client';
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale/pt-BR';
 import { FetchContextApi } from '@/contexts/ApiContext';
@@ -34,7 +34,7 @@ export function CommentsArea() {
                         })}
                      </span>
                   </div>
-                  <p className="mt-5 text-brand-base-text text-md">{i.body}</p>
+                  <p className="mt-5 text-brand-base-text text-md">{i.body.substring(0, 120)} {i.body.length > 120 ? '...' : ''}</p>
                </div>
             ))}
          </div>
