@@ -1,6 +1,7 @@
 import Logo from '../../public/logo.svg';
 import Image from 'next/image';
 import backgroundImage from '../../public/coverheader.svg';
+
 export function Header() {
   return (
     <header

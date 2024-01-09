@@ -7,8 +7,11 @@ import { MdPeopleAlt } from 'react-icons/md';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/axios';
+
 import Loading from '@/app/loading';
+
 import SummaryBox from './SummaryBox';
+
 import { ApiData } from '@/@types/types';
 
 export function Profile() {

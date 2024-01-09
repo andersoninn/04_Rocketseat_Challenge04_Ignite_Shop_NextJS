@@ -1,10 +1,11 @@
 'use client';
-import { useContext } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale/pt-BR';
+import { useContext } from 'react';
+import { useRouter } from 'next/navigation';
+
 import { FetchContextApi } from '@/contexts/ApiContext';
 import Skeleton from './Skeleton';
-import { useRouter } from 'next/navigation';
 
 export function CommentsArea() {
    const router = useRouter();
@@ -13,7 +14,6 @@ export function CommentsArea() {
 
    return (
       <>
-         {/* <div className='mt-12'>{!issues && <Loading />}</div> */}
          <div className="m-auto container max-w-[864px] grid grid-cols-2 justify-center gap-8 mt-12">
             {!issues && <Skeleton />}
 
@@ -34,7 +34,10 @@ export function CommentsArea() {
                         })}
                      </span>
                   </div>
-                  <p className="mt-5 text-brand-base-text text-md">{i.body.substring(0, 120)} {i.body.length > 120 ? '...' : ''}</p>
+                  <p className="mt-5 text-brand-base-text text-md">
+                     {i.body.substring(0, 120)}{' '}
+                     {i.body.length > 120 ? '...' : ''}
+                  </p>
                </div>
             ))}
          </div>
