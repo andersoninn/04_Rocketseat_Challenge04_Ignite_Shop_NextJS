@@ -1,6 +1,6 @@
 import { FetchContextType, IssuesDataType } from '@/@types/types';
 import { api } from '@/lib/axios';
-import { ReactNode, createContext, use, useEffect, useState } from 'react';
+import { ReactNode, createContext, useEffect, useState } from 'react';
 
 interface FetchContextProviderProps {
    children: ReactNode;
@@ -15,7 +15,7 @@ export function FetchContextProvider({ children }: FetchContextProviderProps) {
       const response = await api.get(
          `search/issues?q=${
             query !== undefined ? query : ''
-         }+repo:andersoninn/04_Rocketseat_Challenge04_Git_blog_NextJS`
+         }+repo:andersoninn/Rocketseat_Challenge_03_GitHub_blog_NextJS`
       );
 
       //IT'S NOT THE BEST WAY, BUT IT'S A UNIQUE WAY THAT HAS WORKED.
